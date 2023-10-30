@@ -1,0 +1,40 @@
+import React from "react";
+import veg from "../../assets/veg.png";
+import Nonveg from "../../assets/nonveg.png";
+import NoImage from "../../assets/noImage.png";
+
+function renderFoodTypes(data = []) {
+  let icons = [];
+  if (data.includes("Nonveg"))
+    icons.push(<img className="food-type-icon" src={Nonveg} />);
+  if (data.includes("veg"))
+    icons.push(<img className="food-type-icon" src={veg} />);
+  return icons;
+}
+
+export default function RestaurantCard({ data = {}, handleClick = (e) => {} }) {
+  return (
+    <div className="restaurant-card" id="restaurant-card">
+      <div className="restaurant-logo">
+        <img
+          className="logo-image"
+          src={data.logo || NoImage}
+          alt="restaurant-logo"
+        />
+      </div>
+      <div className="restaurant-details">
+        <div className="name-row">
+          <h2>{data.name ? data.name : "Restaurant Name"}</h2>
+          {renderFoodTypes(data.foodTypes)}
+        </div>
+      </div>
+      <div
+        className="restaurant-goto-cta"
+        role="button"
+        onClick={() => handleClick(data._id)}
+      >
+        Menu
+      </div>
+    </div>
+  );
+}

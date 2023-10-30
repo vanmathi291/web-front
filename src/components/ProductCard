@@ -1,0 +1,41 @@
+import React from "react";
+import veg from "../../assets/veg.png";
+import Nonveg from "../../assets/nonveg.png";
+import { BiEditAlt } from "react-icons/bi";
+import IconCta from "../../Cta/IconCta";
+
+function renderFoodTypes(type = []) {
+  let icons = [];
+  if (type === "nonveg")
+    icons.push(<img className="food-type-icon" src={Nonveg} />);
+  if (type === "veg") icons.push(<img className="food-type-icon" src={veg} />);
+  return icons;
+}
+
+export default function ProductCard({
+  data = {},
+  handleClick = (e) => {},
+  user = {},
+}) {
+  return (
+    <div className="restaurant-card" id="restaurant-card">
+      <div className="restaurant-logo"></div>
+      <div className="restaurant-details">
+        <div className="name-row">
+          <h2>{data.foodName ? data.foodName : "NA"}</h2>
+          {renderFoodTypes(data.foodType)}
+        </div>
+        <p>{data.foodDescription}</p>
+        <p>{data.actualPrice}</p>
+      </div>
+      {user.isAdmin && <IconCta Icon={BiEditAlt} />}
+      <div
+        className="restaurant-goto-cta"
+        role="button"
+        onClick={() => handleClick(data._id)}
+      >
+        Add
+      </div>
+    </div>
+  );
+}
